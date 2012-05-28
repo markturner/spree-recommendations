@@ -1,3 +1,6 @@
+# Fork
+Updating https://github.com/paulcc/spree-recommendations to use new Spree 1.1 style extension
+
 # Spree Recommendations
 
 ## Intro
