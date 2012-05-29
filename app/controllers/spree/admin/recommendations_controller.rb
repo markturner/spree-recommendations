@@ -9,11 +9,11 @@ class Spree::Admin::RecommendationsController < Spree::Admin::ResourceController
     if params[:q].blank?
       @available_recommendations = []
     else
-      @available_recommendations = Product.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:q].downcase}%"])
+      @available_recommendations = Spree::Product.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:q].downcase}%"])
     end
     @available_recommendations.delete_if { |recommendation| @product.recommendations.include?(recommendation) }
     respond_to do |format|
-      format.html
+      format.html { render :layout => false}
       format.js {render :layout => false}
     end
 
@@ -28,7 +28,7 @@ class Spree::Admin::RecommendationsController < Spree::Admin::ResourceController
   end  
   
   def select
-    recommendation = Product.find_by_permalink(params[:id])
+    recommendation = Spree::Product.find_by_permalink(params[:id])
     @product.recommendations << recommendation
     @product.save
     @recommendations = @product.recommendations
