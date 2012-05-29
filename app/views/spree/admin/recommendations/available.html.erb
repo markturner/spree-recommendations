@@ -1,23 +1,25 @@
-<h4><%= t('available_recommendations') %></h4>
-<table class="index">
-	<thead>
-		<tr>
-			<th><%= t("name") %></th>
-			<th><%= t("action") %></th>
-		</tr>
-	</thead>
-	<tbody>
-    <% @available_recommendations.each do |recommendation| %>
-      <tr id="<%= dom_id(recommendation) %>">
-        <td><%= recommendation.name %></td>
-		    <td class="actions">
-          <%= image_tag "spinner.gif", :style => "display:none", :id => "#{dom_id(recommendation, :spinner)}" %>		  		
-          <%= link_to icon('add') + ' ' + t('select'), select_admin_product_recommendation_path(@product, recommendation), :remote => true %>
-		    </td>        
+<div id="RecommendationResults">
+  <h4><%= t('available_recommendations') %></h4>
+  <table class="index recommendations">
+    <thead>
+      <tr>
+        <th><%= t("name") %></th>
+        <th><%= t("action") %></th>
       </tr>
-    <% end %>
-    <% if @available_recommendations.empty? %>
-     <tr><td colspan="3"><%= t('no_match_found') %>.</td></tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @available_recommendations.each do |recommendation| %>
+        <tr id="<%= dom_id(recommendation) %>">
+          <td><%= recommendation.name %></td>
+          <td class="actions">
+            <%= image_tag "spinner.gif", :style => "display:none", :id => "#{dom_id(recommendation, :spinner)}" %>		  		
+            <%= link_to icon('add') + ' ' + t('select'), select_admin_product_recommendation_path(@product, recommendation), :remote => true, :method => :post %>
+          </td>        
+        </tr>
+      <% end %>
+      <% if @available_recommendations.empty? %>
+       <tr><td colspan="3"><%= t('no_match_found') %>.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

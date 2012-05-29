@@ -11,6 +11,11 @@ $(document).ready(function(){
   }); 
 
   function displayRow(html){
-    $("#searchtext").after(html);
+    if ($("#RecommendationResults").length > 0){
+      $("#RecommendationResults").replaceWith(html);
+    }
+    else{
+      $("#searchtext").after(html);
+    }
   }  
 });
