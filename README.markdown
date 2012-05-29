@@ -1,6 +1,32 @@
 # Fork
 Updating https://github.com/paulcc/spree-recommendations to use new Spree 1.1 style extension
 
+Installation
+------------
+
+To use this extension, add the following to your Gemfile:
+
+  gem 'spree-recommendations', :git => 'git://github.com/vijayh/spree-recommendations.git'
+
+Then bundle with:
+  
+  bundle
+
+Next you need to get the spree-recommendations migrations into your project:
+
+  rake spree_recommendations:install:migrations
+
+And migrate:
+
+  rake db:migrate
+
+Lastly, add the spree-recommendations JS to your projects app/assets/javascripts/admin/all.js
+
+  //= require admin/spree_recommendations
+
+
+
+
 # Spree Recommendations
 
 ## Intro
