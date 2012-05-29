@@ -1,5 +1,19 @@
 $(document).ready(function(){
-  $("#searchtext").change(function(){
+  $("#searchtext").keyup(function(){
+    if ($(this).val().length > 2) {
+      $.ajax({
+        type: "POST",
+        url: $(this).attr("data-live-search-url"),
+        data: {"q": $(this).val()},
+        success: function(html) {
+          displayRow(html);
+        }
+      });
+    }
+    return false;
+  }); 
+
+  $("#RecommendationSearch").submit(function(){
     $.ajax({
       type: "POST",
       url: $(this).attr("data-live-search-url"),
@@ -8,8 +22,9 @@ $(document).ready(function(){
         displayRow(html);
       }
     });
+    return false;
   }); 
-
+  
   function displayRow(html){
     if ($("#RecommendationResults").length > 0){
       $("#RecommendationResults").replaceWith(html);

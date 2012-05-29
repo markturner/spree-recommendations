@@ -6,7 +6,7 @@
 </div>
 
 
-<%= form_tag('#') do %>
+<%= form_tag('#', :id => "RecommendationSearch") do %>
   <label><%= t('search') %>:</label>
   <input id="searchtext" size="25" data-live-search-url="<%= available_admin_product_recommendations_url(@product) %>">
 <% end %>
