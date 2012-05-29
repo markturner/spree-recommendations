@@ -4,14 +4,18 @@ module Spree::RecommendationsHelper
   # assume everything is in at least one taxon
   # NOTE: products doesn't return products from children; but wait now for PGs
   def random_recommendations(product, count = 3)
-    recs = product.recommendations.active.sort_by(&:rand).take(count)
+    recs = product.recommendations.map{|r| r.recommended_product }.take(count)
     rest = []
     if (diff = count - recs.count) <= 0
       recs
     else
-      rest = product.taxons.first.products.active.
-             reject {|p| p == product || recs.include?(p)}.
-             sort_by(&:rand).take(diff)
+      unless product.taxons.empty?
+        rest = product.taxons.first.products.active.
+               reject {|p| p == product || recs.include?(p)}.
+               take(diff)
+      else
+        rest = []
+      end
       recs + rest
     end
   end

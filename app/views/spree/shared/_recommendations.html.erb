@@ -1,0 +1,9 @@
+<% if @product.recommendations.count > 0 %>
+  <div id="recommendations">
+    <h6> Recommended Products </h6>
+    <%- random_recommendations(@product, 5).each do |recommended_product| %>
+      <%= link_to recommended_product.name, product_path(recommended_product) %>
+      <br/>
+    <% end %>
+  </div>
+<% end %>
