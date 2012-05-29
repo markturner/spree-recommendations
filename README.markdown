@@ -28,7 +28,12 @@ Lastly, if you want to use the recommended products partial, you just need to re
 
     render "spree/shared/recommendations"
 
+(e.g. within app/views/spree/products/_properties)
     
+You can override the the recommended products partial within your own app by creating your own in:
+
+    your_app/app/views/spree/shared/_recommendations
+
 
 
 # Spree Recommendations
