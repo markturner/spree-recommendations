@@ -18,4 +18,30 @@ $(document).ready(function(){
       $("#searchtext").after(html);
     }
   }  
+
+  $("#RecommendationResults a.select").live("click", function(){
+    $.ajax({
+      type: "POST",
+      url: $(this).attr("href"),
+      data: {"recommended_id": $(this).attr("data-recommended-id")},
+      success: function(html){ 
+        $("#selected-recommendations table.index").replaceWith(html);
+        $("#RecommendationResults").remove();
+        $("#searchtext").val("");
+      }
+    }); 
+    return false;
+  });
+
+  $("#selected-recommendations a.remove_recommendation").live("click", function(){
+    $.ajax({
+      type: "DELETE",
+      url: $(this).attr("href"),
+      data: {"recommendation_id": $(this).attr("data-recommendation-id")},
+      success: function(html){
+        $("#selected-recommendations table.index").replaceWith(html);
+      }
+    });
+    return false;
+  });
 });

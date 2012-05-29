@@ -13,7 +13,7 @@
           <td><%= recommendation.name %></td>
           <td class="actions">
             <%= image_tag "spinner.gif", :style => "display:none", :id => "#{dom_id(recommendation, :spinner)}" %>		  		
-            <%= link_to icon('add') + ' ' + t('select'), select_admin_product_recommendation_path(@product, recommendation), :remote => true, :method => :post %>
+            <%= link_to icon('add') + ' ' + t('select'), select_admin_product_recommendations_url(@product), :class => "select", "data-recommended-id" => recommendation.id %>
           </td>        
         </tr>
       <% end %>

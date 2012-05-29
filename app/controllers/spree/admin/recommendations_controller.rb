@@ -1,9 +1,7 @@
 class Spree::Admin::RecommendationsController < Spree::Admin::ResourceController
-  before_filter :load_data, :only => [:selected, :available, :remove]
+  before_filter :load_data
   
-  def selected
-    @recommendations = @product.recommendations
-  end
+  def selected ; end
   
   def available
     if params[:q].blank?
@@ -11,7 +9,7 @@ class Spree::Admin::RecommendationsController < Spree::Admin::ResourceController
     else
       @available_recommendations = Spree::Product.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:q].downcase}%"])
     end
-    @available_recommendations.delete_if { |recommendation| @product.recommendations.include?(recommendation) }
+    @available_recommendations.delete_if { |recommendation| @product.recommendations.where(:recommended_product_id => recommendation.id).size > 0 || recommendation == @product }
     respond_to do |format|
       format.html { render :layout => false}
       format.js {render :layout => false}
@@ -19,20 +17,23 @@ class Spree::Admin::RecommendationsController < Spree::Admin::ResourceController
 
   end
  
-  
   def remove
-    @product.recommendations.delete(@recommendation)
-    @product.save
-    @recommendations = @product.recommendations
+    recommendation = Spree::Recommendation.find(params[:recommendation_id]) 
+    recommendation.destroy
     render :layout => false
   end  
-  
+
   def select
-    recommendation = Spree::Product.find_by_permalink(params[:id])
-    @product.recommendations << recommendation
-    @product.save
-    @recommendations = @product.recommendations
-    render :layout => false
+    recommended_product = Spree::Product.find(params[:recommended_id])
+    if recommended_product
+      recommendation = @product.recommendations.new
+      recommendation.recommended_product_id = recommended_product.id
+      recommendation.save
+    end
+    respond_to do |format|
+      format.html { render :layout => false}
+      format.js {render :layout => false}
+    end
   end
 
   private

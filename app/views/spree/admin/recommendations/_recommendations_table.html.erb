@@ -6,21 +6,16 @@
   	</tr>
   </thead>
   <tbody>
-    <% recommendations.each do |recommendation| %>
+    <% product.recommendations.each do |recommendation| %>
       <tr id="<%= dom_id(recommendation, :sel)%>">
-        <td><%= recommendation.name %></td>
+        <td><%= recommendation.recommended_product.name %></td>
   	    <td class="actions">
           <%= image_tag "spinner.gif", :style => "display:none", :id => "#{dom_id(recommendation, :rem_spinner)}" %>		  
-		      <%= link_to_remote  icon('delete') + ' ' + t('remove'), 
-		                         {:url => remove_admin_product_recommendation_url(@product, recommendation),
-		                         :loading => "$(#{dom_id(recommendation, :rem_spinner)}).show();",
-		                         :update => 'selected-recommendations',
-		                         :complete => "$('#{dom_id(recommendation, :sel)}').remove(); $(#{dom_id(recommendation, :rem_spinner)}).hide();"}, :class => 'iconlink' %>
-                       
+          <%= link_to icon('delete') + ' ' + t('remove'), remove_admin_product_recommendations_url(@product), "data-recommendation-id" => recommendation.id, :class => "remove_recommendation"%>
   	    </td>        
       </tr>
     <% end %>
-    <% if recommendations.empty? %>
+    <% if product.recommendations.empty? %>
      <tr><td colspan="3"><%= t('none') %>.</td></tr>
     <% end %>
   </tbody>

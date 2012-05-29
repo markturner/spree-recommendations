@@ -2,7 +2,7 @@
 
 <%= render :partial => 'spree/admin/shared/product_tabs', :locals => {:current => t("recommendations") } %>
 <div id="selected-recommendations">
-  <%= render :partial => "recommendations_table", :locals => {:recommendations => @recommendations} %>
+  <%= render :partial => "recommendations_table", :locals => {:product => @product} %>
 </div>
 
 
