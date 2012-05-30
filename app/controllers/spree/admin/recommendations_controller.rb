@@ -1,9 +1,9 @@
 class Spree::Admin::RecommendationsController < Spree::Admin::ResourceController
   before_filter :load_data
   
-  def selected ; end
+  def index ; end
   
-  def available
+  def search 
     if params[:q].blank?
       @available_recommendations = []
     else
@@ -25,7 +25,7 @@ class Spree::Admin::RecommendationsController < Spree::Admin::ResourceController
     render :layout => false
   end  
 
-  def select
+  def add 
     recommended_product = Spree::Product.find(params[:recommended_id])
     if recommended_product
       recommendation = @product.recommendations.new

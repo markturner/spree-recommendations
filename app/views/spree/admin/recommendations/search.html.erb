@@ -1,0 +1,25 @@
+<div id="RecommendationResults">
+  <h4><%= t('available_recommendations') %></h4>
+  <table class="index recommendations">
+    <thead>
+      <tr>
+        <th><%= t("name") %></th>
+        <th><%= t("action") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @available_recommendations.each do |recommendation| %>
+        <tr id="<%= dom_id(recommendation) %>">
+          <td><%= recommendation.name %></td>
+          <td class="actions">
+            <%= image_tag "spinner.gif", :style => "display:none", :id => "#{dom_id(recommendation, :spinner)}" %>		  		
+            <%= link_to icon('add') + ' ' + t('select'), add_admin_product_recommendations_url(@product), :class => "select", "data-recommended-id" => recommendation.id %>
+          </td>        
+        </tr>
+      <% end %>
+      <% if @available_recommendations.empty? %>
+       <tr><td colspan="3"><%= t('no_match_found') %>.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

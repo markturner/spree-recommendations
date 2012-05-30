@@ -4,9 +4,8 @@ Spree::Core::Engine.routes.draw do
       resources :recommendations do
         collection do
           delete :remove
-          post :select
-          post :available
-          get :selected
+          post :add
+          post :search
         end
       end
     end
