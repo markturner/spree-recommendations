@@ -1,13 +1,15 @@
 $(document).ready(function(){
   $("#searchtext").keyup(function(){
-    $.ajax({
-      type: "POST",
-      url: $(this).attr("data-live-search-url"),
-      data: {"q": $(this).val()},
-      success: function(html) {
-        displayRow(html);
-      }
-    });
+    if($(this).val().length > 0){
+      $.ajax({
+        type: "POST",
+        url: $(this).attr("data-live-search-url"),
+        data: {"q": $(this).val()},
+        success: function(html) {
+          displayRow(html);
+        }
+      });
+    }
     return false;
   }); 
 
