@@ -8,28 +8,10 @@ To use this extension, add the following to your Gemfile:
 
     gem 'spree-recommendations', :git => 'git://github.com/vijayh/spree-recommendations.git'
 
-Then bundle with:
+Run:
   
-    bundle
-
-Next you need to get the spree-recommendations migrations into your project:
-
-    rake spree_recommendations:install:migrations
-
-And migrate:
-
-    rake db:migrate
-
-Add the spree-recommendations assets to your project:
-
-JS: app/assets/javascripts/admin/all.js
-
-    //= require admin/spree_recommendations
-
-CSS: app/assets/stylesheets/admin/all.css
-
-    *= require admin/spree_recommendations
-
+    $ bundle
+    $ bundle exec rails g spree_recommendations:install
 
 If you want to use the recommended products partial, you just need to render it within a view, like so:
 
