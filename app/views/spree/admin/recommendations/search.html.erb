@@ -10,7 +10,12 @@
     <tbody>
       <% @available_recommendations.each do |recommendation| %>
         <tr id="<%= dom_id(recommendation) %>">
-          <td><%= recommendation.name %></td>
+          <td>
+            <%= recommendation.name %>
+            <%- if recommendation.sku.present? %>
+              <%= "(SKU: #{recommendation.sku})"%>
+            <% end %>
+          </td>
           <td class="actions">
             <%= image_tag "spinner.gif", :style => "display:none", :id => "#{dom_id(recommendation, :spinner)}" %>		  		
             <%= link_to icon('add') + ' ' + t('select'), add_admin_product_recommendations_url(@product), :class => "select", "data-recommended-id" => recommendation.id %>
