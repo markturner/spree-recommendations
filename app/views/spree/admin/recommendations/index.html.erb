@@ -6,13 +6,14 @@
 </div>
 
 
-<%= form_tag('#', :id => "RecommendationSearch") do %>
-  <label><%= t('search') %>:</label>
-  <input id="searchtext" size="25" data-live-search-url="<%= search_admin_product_recommendations_url(@product) %>">
-<% end %>
+<fieldset>
+  <legend> <%= t('add_recommendation')%> </legend>
+  <%= form_tag('#', :id => "RecommendationSearch") do %>
+    <label><%= t('search') %>:</label>
+    <input id="searchtext" size="25" data-live-search-url="<%= search_admin_product_recommendations_url(@product) %>">
+  <% end %>
 
-<div id="searching" style="display:none">
-  <%= t('searching') %> &nbsp; <%= image_tag "spinner.gif" %>  
-</div>
-<br/>                 
-<div id="search_hits"></div>
+  <div id="searching" style="display:none">
+    <%= t('searching') %> &nbsp; <%= image_tag "spinner.gif" %>  
+  </div>
+</fieldset>
