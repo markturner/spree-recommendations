@@ -20,17 +20,24 @@ And migrate:
 
     rake db:migrate
 
-Add the spree-recommendations JS to your projects app/assets/javascripts/admin/all.js
+Add the spree-recommendations assets to your project:
+
+JS: app/assets/javascripts/admin/all.js
 
     //= require admin/spree_recommendations
 
-Lastly, if you want to use the recommended products partial, you just need to render it within a view, like so:
+CSS: app/assets/stylesheets/admin/all.css
+
+    *= require admin/spree_recommendations
+
+
+If you want to use the recommended products partial, you just need to render it within a view, like so:
 
     render "spree/shared/recommendations"
 
 (e.g. within app/views/spree/products/_properties)
     
-You can override the the recommended products partial within your own app by creating your own in:
+Lastly, you can override the the recommended products partial within your own app by creating your own in:
 
     your_app/app/views/spree/shared/_recommendations
 
