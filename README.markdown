@@ -24,6 +24,8 @@ Lastly, you can override the the recommended products partial within your own ap
     your_app/app/views/spree/shared/_recommendations
 
 
+Compatibility: Currently tested and working with Spree 1.1.2
+
 
 # Spree Recommendations
 
