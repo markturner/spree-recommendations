@@ -1,9 +1,9 @@
 class Spree::Admin::RecommendationsController < Spree::Admin::ResourceController
   before_filter :load_data
-  
+
   def index ; end
-  
-  def search 
+
+  def search
     if params[:q].blank?
       @available_recommendations = []
     else
@@ -11,21 +11,21 @@ class Spree::Admin::RecommendationsController < Spree::Admin::ResourceController
       products_by_sku = Spree::Product.ransack("variants_including_master_sku_cont" => params[:q]).result
       @available_recommendations = (products_by_name + products_by_sku).uniq
     end
-    @available_recommendations.delete_if { |recommendation| @product.recommendations.where(:recommended_product_id => recommendation.id).size > 0 || recommendation == @product }
+    @available_recommendations.delete_if { |recommendation| recommendation.deleted? ||  @product.recommendations.where(:recommended_product_id => recommendation.id).size > 0 || recommendation == @product }
     respond_to do |format|
       format.html { render :layout => false}
       format.js {render :layout => false}
     end
 
   end
- 
+
   def remove
-    recommendation = Spree::Recommendation.find(params[:recommendation_id]) 
+    recommendation = Spree::Recommendation.find(params[:recommendation_id])
     recommendation.destroy
     render :layout => false
-  end  
+  end
 
-  def add 
+  def add
     recommended_product = Spree::Product.find(params[:recommended_id])
     if recommended_product
       recommendation = @product.recommendations.new
