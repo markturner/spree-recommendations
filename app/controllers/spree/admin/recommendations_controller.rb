@@ -7,7 +7,7 @@ class Spree::Admin::RecommendationsController < Spree::Admin::ResourceController
     if params[:q].blank?
       @available_recommendations = []
     else
-      products_by_name = Spree::Product.find(:all, :conditions => ['lower(name) LIKE ?', "%#{params[:q].downcase}%"])
+      products_by_name = Spree::Product.active.where('lower(name) LIKE ?', "%#{params[:q].downcase}%")
       products_by_sku = Spree::Product.ransack("variants_including_master_sku_cont" => params[:q]).result
       @available_recommendations = (products_by_name + products_by_sku).uniq
     end
